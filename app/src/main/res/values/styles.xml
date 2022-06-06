@@ -1,0 +1,44 @@
+<resources>
+    <!-- Base application theme. -->
+
+    <style name="TextViewPrimary">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="TextViewDarkGreen" parent="TextViewPrimary">
+        <item name="android:textColor">@color/very_dark_green</item>
+    </style>
+
+    <style name="TextViewHeader" parent="TextViewPrimary">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Widget.AppTheme.IconButton" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/icon_button_tint</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingStart">@dimen/icon_button_padding</item>
+        <item name="android:paddingEnd">@dimen/icon_button_padding</item>
+        <item name="android:minWidth">@dimen/icon_button_min_size</item>
+        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    </style>
+
+    <style name="Widget.AppTheme.PostButtons" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="android:minWidth">@dimen/icon_button_min_size</item>
+        <item name="android:minHeight">@dimen/icon_button_min_size</item>
+    </style>
+
+    <style name="ButtonsSmallText" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="android:textSize">10sp</item>
+        <item name="android:maxWidth">5dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.LikeCheckBox" parent="Widget.AppTheme.PostButtons">
+        <item name="iconTint">@color/like_checkbox_tint</item>
+    </style>
+
+    <dimen name="icon_button_min_size">24dp</dimen>
+    <dimen name="icon_button_padding">12dp</dimen>
+</resources>

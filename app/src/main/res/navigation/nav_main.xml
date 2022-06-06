@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/postsFragment">
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="ru.netology.socialnetwork.fragments.UserProfileFragment"
+        android:label="MyProfileFragment" />
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="ru.netology.socialnetwork.fragments.PostsFragment"
+        android:label="PostsFragment" />
+    <fragment
+        android:id="@+id/signingFragment"
+        android:name="ru.netology.socialnetwork.fragments.SigningFragment"
+        android:label="SigningFragment" />
+    <fragment
+        android:id="@+id/authenticatonFragment"
+        android:name="ru.netology.socialnetwork.fragments.AuthenticatonFragment"
+        android:label="AuthenticatonFragment" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="ru.netology.socialnetwork.fragments.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
+    <fragment
+        android:id="@+id/newPostFragment"
+        android:name="ru.netology.socialnetwork.fragments.NewPostFragment"
+        android:label="fragment_new_post"
+        tools:layout="@layout/fragment_new_post_event" />
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="ru.netology.socialnetwork.fragments.UsersFragment"
+        android:label="UsersFragment" />
+    <fragment
+        android:id="@+id/userPostsFragment"
+        android:name="ru.netology.socialnetwork.fragments.UserPostsFragment"
+        android:label="UserPostsFragment" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="ru.netology.socialnetwork.fragments.VideoFragment"
+        android:label="VideoFragment" />
+    <fragment
+        android:id="@+id/eventsFragment"
+        android:name="ru.netology.socialnetwork.fragments.EventsFragment"
+        android:label="EventsFragment" />
+    <fragment
+        android:id="@+id/newEventFragment"
+        android:name="ru.netology.socialnetwork.fragments.NewEventFragment"
+        android:label="NewEventFragment" />
+    <fragment
+        android:id="@+id/jobsFragment"
+        android:name="ru.netology.socialnetwork.fragments.JobsFragment"
+        android:label="JobsFragment" />
+    <fragment
+        android:id="@+id/newJobFragment"
+        android:name="ru.netology.socialnetwork.fragments.NewJobFragment"
+        android:label="NewJobFragment" />
+</navigation>

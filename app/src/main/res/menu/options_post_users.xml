@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/likers"
+        android:title="@string/post_likers" />
+    <item
+        android:id="@+id/mentions"
+        android:title="@string/post_mentions" />
+</menu>

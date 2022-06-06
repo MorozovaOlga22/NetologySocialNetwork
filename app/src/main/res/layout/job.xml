@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/common_spacing">
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/TextViewHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/see_also"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/positionLabel"
+        style="@style/TextViewPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:text="@string/position_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name" />
+
+    <TextView
+        android:id="@+id/position"
+        style="@style/TextViewDarkGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:text="@string/see_also"
+        app:layout_constraintStart_toEndOf="@id/positionLabel"
+        app:layout_constraintTop_toTopOf="@id/positionLabel" />
+
+
+    <TextView
+        android:id="@+id/startLabel"
+        style="@style/TextViewPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:text="@string/start_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/positionLabel" />
+
+    <TextView
+        android:id="@+id/start"
+        style="@style/TextViewDarkGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:text="@string/see_also"
+        app:layout_constraintStart_toEndOf="@id/startLabel"
+        app:layout_constraintTop_toTopOf="@id/startLabel" />
+
+
+    <TextView
+        android:id="@+id/finishLabel"
+        style="@style/TextViewPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:text="@string/finish_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startLabel" />
+
+    <TextView
+        android:id="@+id/finish"
+        style="@style/TextViewDarkGreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:text="@string/see_also"
+        app:layout_constraintStart_toEndOf="@id/finishLabel"
+        app:layout_constraintTop_toTopOf="@id/finishLabel" />
+
+
+    <TextView
+        android:id="@+id/linkLabel"
+        style="@style/TextViewPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:text="@string/link_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finishLabel" />
+
+    <TextView
+        android:id="@+id/link"
+        style="@style/TextViewDarkGreen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_spacing"
+        android:autoLink="web"
+        app:layout_constraintStart_toEndOf="@id/linkLabel"
+        app:layout_constraintTop_toTopOf="@id/linkLabel"
+        tools:text="@sample/posts.json/data/link" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editButton"
+        style="@style/Widget.AppTheme.PostButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/common_spacing"
+        android:contentDescription="@string/description_like"
+        app:icon="@drawable/ic_baseline_mode_edit_24"
+        app:layout_constraintEnd_toStartOf="@id/removeButton"
+        app:layout_constraintTop_toTopOf="@id/removeButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/removeButton"
+        style="@style/Widget.AppTheme.PostButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_spacing"
+        android:contentDescription="@string/description_like"
+        app:icon="@drawable/ic_baseline_delete_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/link" />
+</androidx.constraintlayout.widget.ConstraintLayout>
