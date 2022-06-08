@@ -124,10 +124,16 @@ class EventsFragment : Fragment() {
 
             lifecycleScope.launchWhenCreated {
                 adapter.loadStateFlow.collectLatest { state ->
-                    swiperefresh.isRefreshing =
-                        state.refresh is LoadState.Loading ||
-                                state.prepend is LoadState.Loading ||
-                                state.append is LoadState.Loading
+                    val isLoading = state.refresh is LoadState.Loading ||
+                            state.prepend is LoadState.Loading ||
+                            state.append is LoadState.Loading
+                    swiperefresh.isRefreshing = isLoading
+
+                    if (isLoading) {
+                        binding.noData.isVisible = false
+                    } else {
+                        binding.noData.isVisible = adapter.itemCount < 1
+                    }
                 }
             }
 
@@ -141,6 +147,10 @@ class EventsFragment : Fragment() {
 
                 newEvent.visibility =
                     if (authViewModel.authenticated && !state.loading) View.VISIBLE else View.GONE
+
+                if (state.needUpdateAdapter) {
+                    adapter.refresh()
+                }
             }
 
             newEvent.setOnClickListener {

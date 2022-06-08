@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import ru.netology.socialnetwork.R
 import ru.netology.socialnetwork.databinding.UserLineBinding
 import ru.netology.socialnetwork.dto.UserResponse
+import ru.netology.socialnetwork.utils.loadPhoto
 
 interface OnUserInteractionListener {
     fun onShowUser(id: Long)
@@ -39,12 +39,7 @@ class UserViewHolder(
             name.text = user.name
 
             if (user.avatar != null) {
-                Glide.with(avatar)
-                    .load(user.avatar)
-                    .placeholder(R.drawable.ic_loading_100dp)
-                    .error(R.drawable.ic_error_100dp)
-                    .timeout(10_000)
-                    .into(avatar)
+                avatar.loadPhoto(user.avatar)
             } else {
                 avatar.setImageResource(R.drawable.ic_baseline_person_24)
             }

@@ -8,10 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.socialnetwork.R
 import ru.netology.socialnetwork.databinding.FragmentUserProfileBinding
+import ru.netology.socialnetwork.utils.loadPhoto
 import ru.netology.socialnetwork.viewmodel.AuthViewModel
 import ru.netology.socialnetwork.viewmodel.JobViewModel
 import ru.netology.socialnetwork.viewmodel.PostViewModel
@@ -54,10 +54,7 @@ class UserProfileFragment : Fragment() {
 
                     if (userData.user.avatar != null) {
                         myPhoto.visibility = View.VISIBLE
-                        Glide.with(myPhoto)
-                            .load(userData.user.avatar)
-                            .timeout(10_000)
-                            .into(myPhoto)
+                        myPhoto.loadPhoto(userData.user.avatar)
                     } else {
                         myPhoto.visibility = View.GONE
                     }

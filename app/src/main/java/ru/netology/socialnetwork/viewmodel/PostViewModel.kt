@@ -224,7 +224,11 @@ class PostViewModel @Inject constructor(
                         posts = newUserPostsList,
                         empty = newUserPostsList.isEmpty()
                     )
-                    cleanLoadError()
+                    if (it.id == 0L) {
+                        _loadError.value = LoadErrorModel(needUpdateAdapter = true)
+                    } else {
+                        cleanLoadError()
+                    }
                     _postCreated.value = Unit
                 } catch (e: Exception) {
                     e.printStackTrace()

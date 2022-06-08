@@ -12,12 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import ru.netology.socialnetwork.R
 import ru.netology.socialnetwork.databinding.PostBinding
 import ru.netology.socialnetwork.dto.Coordinates
 import ru.netology.socialnetwork.dto.Post
 import ru.netology.socialnetwork.enumeration.AttachmentType
+import ru.netology.socialnetwork.utils.loadPhoto
 
 class PostsAdapter(
     private val isAuthenticated: Boolean,
@@ -56,12 +56,7 @@ class PostViewHolder(
             }
 
             if (post.authorAvatar != null) {
-                Glide.with(avatar)
-                    .load(post.authorAvatar)
-                    .placeholder(R.drawable.ic_loading_100dp)
-                    .error(R.drawable.ic_error_100dp)
-                    .timeout(10_000)
-                    .into(avatar)
+                avatar.loadPhoto(post.authorAvatar)
             } else {
                 avatar.setImageResource(R.drawable.ic_baseline_person_24)
             }
@@ -149,12 +144,7 @@ class PostViewHolder(
     private fun PostBinding.addAttachment(post: Post) {
         if (post.attachment != null && post.attachment.type == AttachmentType.IMAGE) {
             attachment.visibility = View.VISIBLE
-            Glide.with(attachment)
-                .load(post.attachment.url)
-                .placeholder(R.drawable.ic_loading_100dp)
-                .error(R.drawable.ic_error_100dp)
-                .timeout(10_000)
-                .into(attachment)
+            attachment.loadPhoto(post.attachment.url)
         } else {
             attachment.visibility = View.GONE
         }

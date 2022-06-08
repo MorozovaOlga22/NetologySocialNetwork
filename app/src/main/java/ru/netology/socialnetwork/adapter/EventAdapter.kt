@@ -12,12 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import ru.netology.socialnetwork.R
 import ru.netology.socialnetwork.databinding.EventBinding
 import ru.netology.socialnetwork.dto.Coordinates
 import ru.netology.socialnetwork.dto.Event
 import ru.netology.socialnetwork.enumeration.AttachmentType
+import ru.netology.socialnetwork.utils.loadPhoto
 
 class EventAdapter(
     private val isAuthenticated: Boolean,
@@ -66,12 +66,7 @@ class EventViewHolder(
             }
 
             if (event.authorAvatar != null) {
-                Glide.with(avatar)
-                    .load(event.authorAvatar)
-                    .placeholder(R.drawable.ic_loading_100dp)
-                    .error(R.drawable.ic_error_100dp)
-                    .timeout(10_000)
-                    .into(avatar)
+                avatar.loadPhoto(event.authorAvatar)
             } else {
                 avatar.setImageResource(R.drawable.ic_baseline_person_24)
             }
@@ -163,12 +158,7 @@ class EventViewHolder(
     private fun EventBinding.addAttachment(event: Event) {
         if (event.attachment != null && event.attachment.type == AttachmentType.IMAGE) {
             attachment.visibility = View.VISIBLE
-            Glide.with(attachment)
-                .load(event.attachment.url)
-                .placeholder(R.drawable.ic_loading_100dp)
-                .error(R.drawable.ic_error_100dp)
-                .timeout(10_000)
-                .into(attachment)
+            attachment.loadPhoto(event.attachment.url)
         } else {
             attachment.visibility = View.GONE
         }

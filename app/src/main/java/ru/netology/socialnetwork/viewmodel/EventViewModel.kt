@@ -146,7 +146,11 @@ class EventViewModel @Inject constructor(
                         it, mediaUpload
                     )
 
-                    cleanLoadError()
+                    if (it.id == 0L) {
+                        _loadError.value = LoadErrorModel(needUpdateAdapter = true)
+                    } else {
+                        cleanLoadError()
+                    }
                     _eventCreated.value = Unit
                 } catch (e: Exception) {
                     e.printStackTrace()
