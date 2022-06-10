@@ -21,21 +21,27 @@ import javax.inject.Singleton
 
 @Singleton
 class EventRepositoryImpl @Inject constructor(
-    appDb: AppDb,
+    private val appDb: AppDb,
     private val eventDao: EventDao,
-    eventRemoteKeyDao: EventRemoteKeyDao,
+    private val eventRemoteKeyDao: EventRemoteKeyDao,
     private val eventsApiService: EventsApiService,
     private val mediaApiService: MediaApiService
 ) : EventRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override val events: Flow<PagingData<Event>> = Pager(
-        config = PagingConfig(pageSize = 25),
-        remoteMediator = EventRemoteMediator(eventsApiService, appDb, eventDao, eventRemoteKeyDao),
-        pagingSourceFactory = eventDao::pagingSource,
-    ).flow.map { pagingData ->
-        pagingData.map(EventEntity::toDto)
-    }
+    override val events: Flow<PagingData<Event>>
+        get() = Pager(
+            config = PagingConfig(pageSize = 25),
+            remoteMediator = EventRemoteMediator(
+                eventsApiService,
+                appDb,
+                eventDao,
+                eventRemoteKeyDao
+            ),
+            pagingSourceFactory = eventDao::pagingSource,
+        ).flow.map { pagingData ->
+            pagingData.map(EventEntity::toDto)
+        }
 
     override suspend fun createOrUpdate(
         event: Event,

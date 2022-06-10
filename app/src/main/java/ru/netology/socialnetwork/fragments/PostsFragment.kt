@@ -68,10 +68,6 @@ class PostsFragment : CommonPostsFragment(PostFragmentType.ALL_POSTS) {
 
                 newPost.visibility =
                     if (authViewModel.authenticated && !state.loading) View.VISIBLE else View.GONE
-
-                if (state.needUpdateAdapter) {
-                    adapter.refresh()
-                }
             }
 
             newPost.setOnClickListener {

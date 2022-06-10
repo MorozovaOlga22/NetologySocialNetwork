@@ -21,21 +21,22 @@ import javax.inject.Singleton
 
 @Singleton
 class PostRepositoryImpl @Inject constructor(
-    appDb: AppDb,
+    private val appDb: AppDb,
     private val postDao: PostDao,
-    postRemoteKeyDao: PostRemoteKeyDao,
+    private val postRemoteKeyDao: PostRemoteKeyDao,
     private val postsApiService: PostsApiService,
     private val mediaApiService: MediaApiService
 ) : PostRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override val posts: Flow<PagingData<Post>> = Pager(
-        config = PagingConfig(pageSize = 25),
-        remoteMediator = PostRemoteMediator(postsApiService, appDb, postDao, postRemoteKeyDao),
-        pagingSourceFactory = postDao::pagingSource,
-    ).flow.map { pagingData ->
-        pagingData.map(PostEntity::toDto)
-    }
+    override val posts: Flow<PagingData<Post>>
+        get() = Pager(
+            config = PagingConfig(pageSize = 25),
+            remoteMediator = PostRemoteMediator(postsApiService, appDb, postDao, postRemoteKeyDao),
+            pagingSourceFactory = postDao::pagingSource,
+        ).flow.map { pagingData ->
+            pagingData.map(PostEntity::toDto)
+        }
 
     override suspend fun getAll(authorId: Long): List<Post> {
         val response = postsApiService.getAll(authorId)

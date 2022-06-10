@@ -147,10 +147,6 @@ class EventsFragment : Fragment() {
 
                 newEvent.visibility =
                     if (authViewModel.authenticated && !state.loading) View.VISIBLE else View.GONE
-
-                if (state.needUpdateAdapter) {
-                    adapter.refresh()
-                }
             }
 
             newEvent.setOnClickListener {

@@ -10,9 +10,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.netology.socialnetwork.auth.AppAuth
 import ru.netology.socialnetwork.dto.Attachment
@@ -44,21 +42,26 @@ class PostViewModel @Inject constructor(
         likedByMe = false
     )
 
+    private val needRefresh = MutableSharedFlow<Unit>()
 
-    val posts: Flow<PagingData<Post>> = auth.authStateFlow
-        .flatMapLatest { (myId, _) ->
-            repository
-                .posts
-                .map { pagingData ->
-                    pagingData.map { item ->
-                        item.copy(
-                            mentionedMe = item.mentionIds.contains(myId),
-                            likedByMe = item.likeOwnerIds.contains(myId),
-                            ownedByMe = item.authorId == myId
-                        )
+    val posts: Flow<PagingData<Post>> =
+        needRefresh.stateIn(viewModelScope, SharingStarted.Lazily, Unit)
+            .flatMapLatest {
+                auth.authStateFlow
+                    .flatMapLatest { (myId, _) ->
+                        repository
+                            .posts
+                            .map { pagingData ->
+                                pagingData.map { item ->
+                                    item.copy(
+                                        mentionedMe = item.mentionIds.contains(myId),
+                                        likedByMe = item.likeOwnerIds.contains(myId),
+                                        ownedByMe = item.authorId == myId
+                                    )
+                                }
+                            }
                     }
-                }
-        }
+            }
 
     private val _postCreated = SingleLiveEvent<Unit>()
     val postCreated: LiveData<Unit>
@@ -225,10 +228,9 @@ class PostViewModel @Inject constructor(
                         empty = newUserPostsList.isEmpty()
                     )
                     if (it.id == 0L) {
-                        _loadError.value = LoadErrorModel(needUpdateAdapter = true)
-                    } else {
-                        cleanLoadError()
+                        needRefresh.tryEmit(Unit)
                     }
+                    cleanLoadError()
                     _postCreated.value = Unit
                 } catch (e: Exception) {
                     e.printStackTrace()
