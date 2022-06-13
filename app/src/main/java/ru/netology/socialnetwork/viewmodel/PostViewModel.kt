@@ -42,26 +42,25 @@ class PostViewModel @Inject constructor(
         likedByMe = false
     )
 
-    private val needRefresh = MutableSharedFlow<Unit>()
+    private val needRefresh = MutableStateFlow(Unit)
 
     val posts: Flow<PagingData<Post>> =
-        needRefresh.stateIn(viewModelScope, SharingStarted.Lazily, Unit)
-            .flatMapLatest {
-                auth.authStateFlow
-                    .flatMapLatest { (myId, _) ->
-                        repository
-                            .posts
-                            .map { pagingData ->
-                                pagingData.map { item ->
-                                    item.copy(
-                                        mentionedMe = item.mentionIds.contains(myId),
-                                        likedByMe = item.likeOwnerIds.contains(myId),
-                                        ownedByMe = item.authorId == myId
-                                    )
-                                }
+        needRefresh.flatMapLatest {
+            auth.authStateFlow
+                .flatMapLatest { (myId, _) ->
+                    repository
+                        .posts
+                        .map { pagingData ->
+                            pagingData.map { item ->
+                                item.copy(
+                                    mentionedMe = item.mentionIds.contains(myId),
+                                    likedByMe = item.likeOwnerIds.contains(myId),
+                                    ownedByMe = item.authorId == myId
+                                )
                             }
-                    }
-            }
+                        }
+                }
+        }
 
     private val _postCreated = SingleLiveEvent<Unit>()
     val postCreated: LiveData<Unit>
